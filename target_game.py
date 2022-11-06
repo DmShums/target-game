@@ -19,6 +19,10 @@ def generate_grid() -> List[List[str]]:
 def get_words(f: str, letters: List[str]) -> List[str]:
     """
     Reads the file f. Checks the words with rules and returns a list of words.
+    Rules:
+    1. Words' length must be >= 4
+    2. Word must have middle letter from letters
+    3. There doesn't have to be more same letters in word than in letters argument
     >>> get_words('en.txt', ['w', 'u', 'm', 'r', 'o', 'v', 'k', 'i', 'f'])
     ['fork', 'form', 'forum', 'four', 'fowk', 'from', 'frow', 'irok', 'komi', 'kori', 'miro', 'miro', 'moki', 'ovum', 'work', 'worm', 'wouf']
     >>> get_words('en.txt', 11)
@@ -66,7 +70,7 @@ def get_user_words() -> List[str]:
     Note: the user presses the enter key after entering each word.
     """
     list_of_words = []
-    print(generate_grid())
+    print('Please enter words:')
     while True:
         try:
             list_of_words.append(input())
@@ -75,4 +79,58 @@ def get_user_words() -> List[str]:
     return list_of_words
 # print(get_user_words())
 
+def get_pure_user_words(user_words: List[str],
+                        letters: List[str],
+                        words_from_dict: List[str]) -> List[str]:
+    """
+    (list, list, list) -> list
 
+    Checks user words with the rules and returns list of those words
+    that are not in dictionary.
+    Reads the file f. Checks the words with rules and returns a list of words.
+    Rules:
+    1. Words' length must be >= 4
+    2. Word must have middle letter from letters
+    3. There doesn't have to be more same letters in word than in letters argument
+    """
+    # change grid letters to normal
+    bufer_letters = []
+    for i in letters:
+        bufer_letters.append("".join(i))
+    letters = list("".join(bufer_letters))
+
+    # tests
+    # words_from_dict = get_words('en.txt', letters)
+    # print(letters)
+    # print(words_from_dict)
+    # user_words = get_user_words()
+
+    list_of_words = []
+    for i in user_words:
+        if i.find(letters[4]) != -1 and len(i) >= 4:
+            list_of_words.append(i)
+
+    central_letter_list = []
+    for i in list_of_words:
+        for j in list(set(i)):
+            if (j not in letters):
+                break
+            if (list(i).count(j) > letters.count(j)):
+                break
+        else:
+            central_letter_list.append(i)
+
+    final_list = []
+    for i in central_letter_list:
+        if i not in words_from_dict:
+            final_list.append(i)
+    return final_list
+# print(get_pure_user_words(get_user_words(), generate_grid(), get_words('en.txt', generate_grid())))
+# print(get_pure_user_words([1,2,3], generate_grid(), get_words('en.txt', generate_grid())))
+
+def results():
+    pass
+
+if __name__ == "__main__":
+    import doctest
+    print(doctest.testmod())
