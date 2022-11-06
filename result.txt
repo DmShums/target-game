@@ -1,0 +1,3 @@
+Number of correct words: 3
+All possible missed words: arui, four, hour, houri, huari, huarizo, huia, hura, hura, urao, uria, uriah
+User words that are not in dictionary: zuxi, aihxur, furo
