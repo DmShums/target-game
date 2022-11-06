@@ -53,3 +53,26 @@ def get_words(f: str, letters: List[str]) -> List[str]:
             final_list.append(i)
 
     return final_list
+
+
+# print(get_words('en.txt', ['w', 'u', 'm', 'r', 'o', 'v', 'k', 'i', 'f']))
+# print(get_words('en.txt', generate_grid()))
+
+def get_user_words() -> List[str]:
+    """
+    Gets words from user input and returns a list with these words.
+    Usage: enter a word or press ctrl+d to finish for *nix or Ctrl-Z+Enter 
+    for Windows.
+    Note: the user presses the enter key after entering each word.
+    """
+    list_of_words = []
+    print(generate_grid())
+    while True:
+        try:
+            list_of_words.append(input())
+        except:
+            break
+    return list_of_words
+# print(get_user_words())
+
+
